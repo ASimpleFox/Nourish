@@ -73,6 +73,28 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/personal", async (req, res) => {
+  try {
+    let username = req.body.username;
+    if (!checkIfExist(username, "")) {
+      res.status(300).json({"error": "username doesn't exists"});
+    }
+    let result = await getPersonalInfo(username);
+    let returnObject = {
+      "username": result[0]["Username"],
+      "email": result[0]["Email"],
+      "gender": result[0]["Gender"],
+      "age": result[0]["Age"] > 0 ? result[0]["Height"] : "",
+      "height": result[0]["Height"] > 0 ? result[0]["Height"] : "",
+      "weight": result[0]["Weights"] > 0 ? result[0]["Height"] : ""
+    };
+    return res.status(200).json(returnObject);
+  } catch(error) {
+    console.log(error);
+    res.status(SERVER_ERROR).json({"error": SERVER_ERROR_MESSAGE});
+  }
+});
+
 app.post("/credential", async (req, res) => {
   try {
     let username = req.body.username;
@@ -96,6 +118,12 @@ app.post("/credential", async (req, res) => {
     res.status(SERVER_ERROR).json({"error": SERVER_ERROR_MESSAGE});
   }
 });
+
+async function getPersonalInfo(username) {
+  let query = "SELECT * FROM Users WHERE Username = ?;";
+  let [rows] = await db.query(query, [username]);
+  return rows;
+}
 
 async function createUser(info) {
   let query = "INSERT INTO Users(Username, Passwords, Email, Gender, Age, Height, Weights) VALUES (?, ?, ?, ?, ?, ?, ?);";
