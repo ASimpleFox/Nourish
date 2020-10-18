@@ -9,7 +9,13 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-import axios from 'axios'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import axios from 'axios';
+import FormControl from '@material-ui/core/FormControl';
 
 export class Dashboard extends Component {
     state = {
@@ -21,6 +27,27 @@ export class Dashboard extends Component {
         gender: "",
         profile: false,
         image: false
+    }
+
+    regcomp(val, name, req) {
+        if (req || val !== "") {
+            if (val === "") {
+                val = (
+                    <Typography color="error">
+                        <i>Missing!</i>
+                    </Typography>
+                );
+            }
+            return (
+                <React.Fragment>
+                    <ListItem>
+                        <ListItemText primary={name} secondary={val} />
+                    </ListItem>
+                    <Divider />
+                </React.Fragment>
+            )
+        }
+
     }
 
     async componentDidMount(props) {
@@ -92,10 +119,24 @@ export class Dashboard extends Component {
                 <Typography variant="h4">
                     How do I stay healthy?
                 </Typography>
-                <div>
-                    <p> How to stay healthy! </p>
+                <div style={{ width: "50%", minWidth: 200}}>
+                    <p> A healthy lifestyle can help you thrive throughout your life. Making healthy choices isn't always easy, however. It can be hard to find the time and energy to exercise regularly or prepare healthy meals. However, your efforts will pay off in many ways, and for the rest of your life. </p>
                 </div>
                 <br />
+                <Typography variant="h4">
+                    {this.state.username}'s Information
+                </Typography>
+                <br />
+                <FormControl style={{ margin: 20, display: "flex" }}>
+                    <Paper style={{ alignSelf: "center", width: '50%', minWidth: 300 }} variant="outlined">
+                        <List>
+                            {this.regcomp("Age", this.state.age, true)}
+                            {this.regcomp("Height", this.state.height, true)}
+                            {this.regcomp("Weight", this.state.weight, true)}
+                            {this.regcomp("Gender", this.state.gender, true)}
+                        </List>
+                    </Paper>
+                </FormControl>
                 <div style={{ height: '70%' }}>
                     <Fab color="primary" variant="extended" aria-label="add" onClick={this.goToImage}>
                         Nutrition Label

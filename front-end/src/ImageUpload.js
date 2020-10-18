@@ -31,11 +31,33 @@ export class ImageUpload extends Component {
     sendToServer = async () => {
         let image = new Image();
         image.src = document.getElementById("source").innerHTML;
-        let response = await axios.post("http://localhost:8000/login", {
+        var apiBaseUrl = "http://localhost:8000/upload";
+        var self = this;
+        var payload = {
             imageUrl: image
-        }).catch(error => {
-            console.log(JSON.stringify(error));
-        })
+        }
+        axios.post(apiBaseUrl, payload)
+            .then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                    console.log("Successful Upload");
+                    this.setState({ home: true });
+                } else if (response.status === 205) {
+                    console.log("Created failed");
+                    alert("Upload Failed");
+                }
+                else if (response.status === 400) {
+                    console.log("Upload Failed");
+                    alert("Upload Failed");
+                }
+                else {
+                    console.log("Upload Failed");
+                    alert("Upload Failed");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     WebcamCapture = () => {

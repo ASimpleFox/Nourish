@@ -117,21 +117,21 @@ export class Register extends Component {
                     <br />
                     <TextField
                         variant="outlined"
-                        label="Height"
+                        label="Height (inches)"
                         onChange={this.handleChange('height')}
                     />
                     <br />
                     <br />
                     <TextField
                         variant="outlined"
-                        label="Weight"
+                        label="Weight (lbs)"
                         onChange={this.handleChange('weight')}
                     />
                     <br />
                     <br />
                     <TextField
                         variant="outlined"
-                        label="Gender"
+                        label="Gender (Male/Female/Other/NA)"
                         onChange={this.handleChange('gender')}
                     />
                     <br />
