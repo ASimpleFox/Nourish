@@ -21,12 +21,12 @@ function App() {
       <div className="App">
           <Router>
               <Switch>
-                  <Route exact path={HOME_ROUTE} component={Dashboard} />
-                  <Route exact path={IMAGE_ROUTE} component={ImageUpload} />
-                  <Route exact path={PROFILE_ROUTE} component={Profile} />
-                  <Route exact path={DEFAULT} component={Dashboard} />
-                  <Route exact path={LOGIN_ROUTE} component={Login} />
-                  <Route exact path={REGISTER_ROUTE} component={Register} />
+                  <Route exact path={HOME_ROUTE} render={(props) => <Dashboard {...props}/>} />
+                  <Route exact path={IMAGE_ROUTE} render={(props) => <ImageUpload {...props} />} />
+                  <Route exact path={PROFILE_ROUTE} render={(props) => <Profile {...props} />} />
+                  <Route exact path={DEFAULT} render={(props) => <Login {...props} />} />
+                  <Route exact path={LOGIN_ROUTE} render={(props) => <Login {...props} />} />
+                  <Route exact path={REGISTER_ROUTE} render={(props) => <Register {...props} />} />
               </Switch>
           </Router>
     </div>

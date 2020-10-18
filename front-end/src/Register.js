@@ -15,10 +15,10 @@ export class Register extends Component {
         username: "",
         password: "",
         email: "",
-        age: "",
-        height: "",
-        weight: "",
-        gender: ""
+        age: "0",
+        height: "0",
+        weight: "0",
+        gender: "NA"
     }
 
     handleChange = input => e => {
@@ -42,7 +42,7 @@ export class Register extends Component {
             "gender": this.state.gender
         }
         axios.post(apiBaseUrl, payload)
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 if (response.status === 200) {
                     console.log("Create successfull");
@@ -66,7 +66,7 @@ export class Register extends Component {
     }
 
     render() {
-        if (this.state.home === true) {
+        if (this.state.login === true) {
             return (<Redirect to={LOGIN_ROUTE} />);
         }
         return (

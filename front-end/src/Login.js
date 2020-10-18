@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { PROFILE_ROUTE } from './routes';
-import { IMAGE_ROUTE } from './routes';
+import { REGISTER_ROUTE } from './routes';
+import { HOME_ROUTE } from './routes';
 import { Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +13,9 @@ import axios from 'axios'
 export class Login extends Component {
     state = {
         username: "",
-        password: ""
+        password: "",
+        home: false,
+        reg: false
     }
 
     handleChange = input => e => {
@@ -28,10 +30,11 @@ export class Login extends Component {
             "password": this.state.password
         }
         axios.post(apiBaseUrl, payload)
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 if (response.status === 200 && (response.data)["result"] === "correct") {
-                    console.log("Login successfull");
+                    console.log("Login successful");
+                    this.setState({ home: true });
                 } else if (response.status === 200 && (response.data)["result"] === "incorrect") {
                     console.log("Login failed");
                 }
@@ -49,7 +52,18 @@ export class Login extends Component {
             });
     }
 
+    goToRegister = () => {
+        this.setState({ reg: true });
+    }
+
     render() {
+        if (this.state.home === true) {
+            const { username } = this.state;
+            return (<Redirect to={{ pathname: HOME_ROUTE, state: { username: username } }} />);
+        }
+        if (this.state.reg === true) {
+            return (<Redirect to={REGISTER_ROUTE} />);
+        }
         return (
             <ThemeProvider>
                 <div>
@@ -92,7 +106,11 @@ export class Login extends Component {
                                 Login
                             </Fab>
                     }
-
+                    <br />
+                    <br />
+                    <Fab label="Submit" color="secondary" variant="extended" onClick={this.goToRegister} >
+                        Create Account
+                    </Fab>
                 </div>
             </ThemeProvider>
         )
