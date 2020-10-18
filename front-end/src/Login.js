@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
 
 export class Login extends Component {
     state = {
@@ -76,42 +78,49 @@ export class Login extends Component {
                     </AppBar>
                 </div>
                 <br />
-                <Typography variant="h4">
-                    Login
-                </Typography>
+                <FormControl style={{ margin: 20, display: "flex" }}>
+                    <Paper style={{ alignSelf: "center", width: "30%", minWidth: 200 }} elevation={6}>
+                        <br />
+                        <Typography variant="h4">
+                            Login
+                        </Typography>
+                        <br />
+                        <div style={{ height: '70%' }}>
+                            <TextField
+                                variant="outlined"
+                                label="Username"
+                                onChange={this.handleChange('username')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                type="password"
+                                variant="outlined"
+                                label="Password"
+                                onChange={this.handleChange('password')}
+                            />
+                            <br />
+                        </div>
+                        <br />
+                        <br />
+                    </Paper>
+                </FormControl>
                 <br />
-                <div style={{ height: '70%' }}>
-                    <TextField
-                        variant="outlined"
-                        label="Username"
-                        onChange={this.handleChange('username')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        type="password"
-                        variant="outlined"
-                        label="Password"
-                        onChange={this.handleChange('password')}
-                    />
-                    <br />
-                    <br />
-                    {
-                        this.state.username === "" && this.state.password === "" ?
-                            <Fab label="Submit" color="secondary" variant="extended" onClick={(event) => this.handleClick(event)} disabled>
-                                Login
-                            </Fab>
-                            :
-                            <Fab label="Submit" color="secondary" variant="extended" onClick={(event) => this.handleClick(event)} >
-                                Login
-                            </Fab>
-                    }
-                    <br />
-                    <br />
-                    <Fab label="Submit" color="secondary" variant="extended" onClick={this.goToRegister} >
-                        Create Account
+                {
+                    this.state.username === "" && this.state.password === "" ?
+                        <Fab label="Submit" color="secondary" variant="extended">
+                            Login
                     </Fab>
-                </div>
+                        :
+                        <Fab label="Submit" color="secondary" variant="extended" onClick={(event) => this.handleClick(event)} >
+                            Login
+                    </Fab>
+                }
+                <br />
+                <br />
+                <Fab label="Submit" color="secondary" variant="extended" onClick={this.goToRegister} >
+                    Create Account
+                </Fab>
             </ThemeProvider>
         )
     }

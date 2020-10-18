@@ -42,10 +42,10 @@ export class Profile extends Component {
     render() {
         if (this.state.profile === true) {
             this.setState({ profile: false });
-            return (<Redirect to={PROFILE_ROUTE} />);
+            return (<Redirect to={{ pathname: PROFILE_ROUTE, state: { username: this.props.location.state.username } }} />);
         }
         if (this.state.home === true) {
-            return (<Redirect to={HOME_ROUTE} />);
+            return (<Redirect to={{ pathname: HOME_ROUTE, state: { username: this.props.location.state.username } }} />);
         }
         return (
             <ThemeProvider>

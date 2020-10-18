@@ -96,10 +96,10 @@ export class Dashboard extends Component {
 
     render() {
         if (this.state.profile === true) {
-            return (<Redirect to={PROFILE_ROUTE} />);
+            return (<Redirect to={{ pathname: PROFILE_ROUTE, state: { username: this.state.username } }} />);
         }
         if (this.state.image === true) {
-            return (<Redirect to={IMAGE_ROUTE} />);
+            return (<Redirect to={{ pathname: IMAGE_ROUTE, state: { username: this.state.username } }} />);
         }
         return (
             <ThemeProvider>
@@ -116,25 +116,37 @@ export class Dashboard extends Component {
                     </AppBar>
                 </div>
                 <br />
-                <Typography variant="h4">
-                    How do I stay healthy?
-                </Typography>
-                <div style={{ width: "50%", minWidth: 200}}>
-                    <p> A healthy lifestyle can help you thrive throughout your life. Making healthy choices isn't always easy, however. It can be hard to find the time and energy to exercise regularly or prepare healthy meals. However, your efforts will pay off in many ways, and for the rest of your life. </p>
-                </div>
-                <br />
-                <Typography variant="h4">
-                    {this.state.username}'s Information
-                </Typography>
-                <br />
                 <FormControl style={{ margin: 20, display: "flex" }}>
-                    <Paper style={{ alignSelf: "center", width: '50%', minWidth: 300 }} variant="outlined">
-                        <List>
-                            {this.regcomp("Age", this.state.age, true)}
-                            {this.regcomp("Height", this.state.height, true)}
-                            {this.regcomp("Weight", this.state.weight, true)}
-                            {this.regcomp("Gender", this.state.gender, true)}
-                        </List>
+                    <Paper style={{ alignSelf: "center", width: "60%", minWidth: 300 }} elevation={6}>
+                        <br />
+                        <Typography variant="h4">
+                            How do I stay healthy?
+                        </Typography>
+                        <FormControl style={{ margin: 20, display: "flex" }}>
+                            <div style={{ alignSelf: "center", width: "80%", minWidth: 200}}>
+                                <p> A healthy lifestyle can help you thrive throughout your life. Making healthy choices isn't always easy, however. It can be hard to find the time and energy to exercise regularly or prepare healthy meals. However, your efforts will pay off in many ways, and for the rest of your life. </p>
+                                <p> -- UCSF Health </p>
+                            </div>
+                        </FormControl>
+                    </Paper>
+                </FormControl>
+                <FormControl style={{ margin: 20, display: "flex" }}>
+                    <Paper style={{ alignSelf: "center", width: "60%", minWidth: 300 }} elevation={6}>
+                        <br />
+                        <Typography variant="h4">
+                            {this.state.username}'s Information
+                        </Typography>
+                        <br />
+                        <FormControl style={{ margin: 20, display: "flex" }}>
+                            <Paper style={{ alignSelf: "center", width: '50%', minWidth: 300 }} variant="outlined">
+                                <List>
+                                    {this.regcomp("Age", this.state.age, true)}
+                                    {this.regcomp("Height", this.state.height, true)}
+                                    {this.regcomp("Weight", this.state.weight, true)}
+                                    {this.regcomp("Gender", this.state.gender, true)}
+                                </List>
+                            </Paper>
+                        </FormControl>
                     </Paper>
                 </FormControl>
                 <div style={{ height: '70%' }}>

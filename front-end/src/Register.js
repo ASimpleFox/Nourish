@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
 
 export class Register extends Component {
     state = {
@@ -23,6 +25,10 @@ export class Register extends Component {
 
     handleChange = input => e => {
         this.setState({ [input]: e.target.value });
+    }
+
+    goToLogin = () => {
+        this.setState({ login: true });
     }
 
     completed() {
@@ -71,71 +77,78 @@ export class Register extends Component {
         }
         return (
             <ThemeProvider>
-                <div>
-                    <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="h4">
-                                Nourish
-                            </Typography>
-                        </Toolbar>
-                    </AppBar>
+                
+                        <div>
+                            <AppBar position="static">
+                                <Toolbar>
+                                    <Typography variant="h4">
+                                        Nourish
+                                    </Typography>
+                                </Toolbar>
+                            </AppBar>
                 </div>
-                <br />
-                <Typography variant="h4">
-                    Create New Account
-                </Typography>
-                <br />
-                <div style={{ height: '70%' }}>
-                    <TextField
-                        variant="outlined"
-                        label="Username"
-                        onChange={this.handleChange('username')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        type="password"
-                        variant="outlined"
-                        label="Password"
-                        onChange={this.handleChange('password')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        label="Email"
-                        onChange={this.handleChange('email')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        label="Age"
-                        onChange={this.handleChange('age')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        label="Height (inches)"
-                        onChange={this.handleChange('height')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        label="Weight (lbs)"
-                        onChange={this.handleChange('weight')}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        variant="outlined"
-                        label="Gender (Male/Female/Other/NA)"
-                        onChange={this.handleChange('gender')}
-                    />
-                    <br />
-                    <br />
+                <FormControl style={{ margin: 20, display: "flex" }}>
+                    <Paper style={{ alignSelf: "center", width: "30%", minWidth: 200 }} elevation={6}>
+                        <br />
+                        <Typography variant="h4">
+                            Create New Account
+                        </Typography>
+                        <br />
+                        <div style={{ height: '70%' }}>
+                            <TextField
+                                variant="outlined"
+                                label="Username"
+                                onChange={this.handleChange('username')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                type="password"
+                                variant="outlined"
+                                label="Password"
+                                onChange={this.handleChange('password')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                label="Email"
+                                onChange={this.handleChange('email')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                label="Age"
+                                onChange={this.handleChange('age')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                label="Height (inches)"
+                                onChange={this.handleChange('height')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                label="Weight (lbs)"
+                                onChange={this.handleChange('weight')}
+                            />
+                            <br />
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                label="Gender"
+                                onChange={this.handleChange('gender')}
+                            />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        </Paper>
+                    </FormControl>
                     {
                         this.completed() ?
                             <Fab label="Submit" color="secondary" variant="extended" onClick={(event) => this.handleClick(event)} >
@@ -145,9 +158,13 @@ export class Register extends Component {
                             <Fab label="Submit" color="secondary" variant="extended" onClick={(event) => this.handleClick(event)} disabled>
                                 Register
                             </Fab>
-                    }
-
-                </div>
+                }
+                <br />
+                <br />
+                <Fab label="Back" color="secondary" variant="extended" onClick={this.goToLogin} >
+                    Back
+                </Fab>
+                
             </ThemeProvider>
         )
     }

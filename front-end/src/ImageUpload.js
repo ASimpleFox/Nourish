@@ -12,6 +12,8 @@ import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import axios from 'axios'
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
 
 export class ImageUpload extends Component {
     state = {
@@ -106,10 +108,10 @@ export class ImageUpload extends Component {
 
     render() {
         if (this.state.profile === true) {
-            return (<Redirect to={PROFILE_ROUTE} />);
+            return (<Redirect to={{ pathname: PROFILE_ROUTE, state: { username: this.props.location.state.username } }} />);
         }
         if (this.state.home === true) {
-            return (<Redirect to={HOME_ROUTE} />);
+            return (<Redirect to={{ pathname: HOME_ROUTE, state: { username: this.props.location.state.username } }} />);
         }
         return (
             <ThemeProvider>
@@ -125,11 +127,15 @@ export class ImageUpload extends Component {
                         </Toolbar>
                     </AppBar>
                 </div>
-                <br/>
-                <Typography variant="h5">
-                    Take a photo of the nutrition label.
-                </Typography>
-                <br />
+                <FormControl style={{ margin: 20, display: "flex" }}>
+                    <Paper style={{ alignSelf: "center", width: "60%", minWidth: 300 }} elevation={6}>
+                        <br/>
+                        <Typography variant="h5">
+                            Take a photo of the nutrition label.
+                        </Typography>
+                        <br />
+                    </Paper>
+                </FormControl >
                 <div style={{ display: "inline", justifyContent: "center" }}>
                     <div>
                         <this.WebcamCapture />
