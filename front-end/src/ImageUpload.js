@@ -30,8 +30,8 @@ export class ImageUpload extends Component {
         this.setState({ home: true });
     }
 
-    sendToServer = () => {
-        let response = await axios.post("http://localhost:3001/sign_s3", {
+    sendToServer = async () => {
+        let response = await axios.post("http://localhost:8000/login", {
             imageUrl: "Hello"
         }).catch(error => {
             console.log(JSON.stringify(error));
@@ -42,7 +42,7 @@ export class ImageUpload extends Component {
         const webcamRef = React.useRef(null);
 
         const videoConstraints = {
-            facingMode: "environment" 
+            facingMode: "environment"
         };
 
         const capture = async () => {
