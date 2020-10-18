@@ -45,11 +45,11 @@ export class Register extends Component {
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
-                    console.log("Login successfull");
+                    console.log("Create successfull");
                     this.setState({ login: true });
                 } else if (response.status === 205) {
-                    console.log("Login failed");
-                    alert("username or passwords already exists")
+                    console.log("Created failed");
+                    alert("username or email already exists")
                 }
                 else if (response.status === 400) {
                     console.log("Username password not exist");
