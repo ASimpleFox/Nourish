@@ -13,6 +13,7 @@ import Webcam from "react-webcam";
 import Fab from '@material-ui/core/Fab';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import axios from 'axios'
 
 export class ImageUpload extends Component {
     state = {
@@ -27,6 +28,14 @@ export class ImageUpload extends Component {
 
     goToHome = () => {
         this.setState({ home: true });
+    }
+
+    sendToServer = () => {
+        let response = await axios.post("http://localhost:3001/sign_s3", {
+            imageUrl: "Hello"
+        }).catch(error => {
+            console.log(JSON.stringify(error));
+        })
     }
 
     WebcamCapture = () => {
@@ -120,7 +129,7 @@ export class ImageUpload extends Component {
                         Dashboard
                     </Fab>
                     {this.state.imageSrc !== null &&
-                        <Fab color="secondary" variant="extended">
+                        <Fab color="secondary" variant="extended" onClick={this.sendToServer }>
                             Next Step
                             <ArrowForwardIcon />
                         </Fab>
