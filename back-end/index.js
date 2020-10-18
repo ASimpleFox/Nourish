@@ -9,14 +9,19 @@ const multer = require("multer");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
 const { get } = require("http");
-const GoogleCloudStorage = require('@google-cloud/storage');
-const GOOGLE_CLOUD_PROJECT_ID = 'authentic-host-292819';
-const GOOGLE_CLOUD_KEYFILE = '../.env';
+// const GoogleCloudStorage = require('@google-cloud/storage');
+// const GOOGLE_CLOUD_PROJECT_ID = 'authentic-host-292819';
+// const gcsHelpers = require('../helpers/google-cloud-storage');
+// const DEFAULT_BUCKET_NAME = 'gcs-bucket-demo';
+// const GOOGLE_CLOUD_KEYFILE = '../.env';
 
-const storage = GoogleCloudStorage({
-  projectId: GOOGLE_CLOUD_PROJECT_ID,
-  keyFilename: GOOGLE_CLOUD_KEYFILE,
-});
+// const storage = GoogleCloudStorage({
+//   projectId: GOOGLE_CLOUD_PROJECT_ID,
+//   keyFilename: GOOGLE_CLOUD_KEYFILE,
+// });
+
+// const {Storage} = gcsHelpers;
+
 app.use(cors());
 
 const CLIENT_ERROR = 400;
@@ -34,7 +39,61 @@ const db = mysql.createPool({
   password: process.env.DB_PASS || 'A123456789Bc'
 });
 
-exports.getPublicUrl = (bucketName, fileName) => `https://storage.googleapis.com/${bucketName}/${fileName}`;
+// exports.getPublicUrl = (bucketName, fileName) => `https://storage.googleapis.com/${bucketName}/${fileName}`;
+
+// exports.sendUploadToGCS = (req, res, next) => {
+//   if (!req.file) {
+//     return next();
+//   }
+
+//   const bucketName = req.body.bucketName || DEFAULT_BUCKET_NAME;
+//   const bucket = storage.bucket(bucketName);
+//   const gcsFileName = `${Date.now()}-${req.file.originalname}`;
+//   const file = bucket.file(gcsFileName);
+
+//   const stream = file.createWriteStream({
+//     metadata: {
+//       contentType: req.file.mimetype,
+//     },
+//   });
+
+//   stream.on('error', (err) => {
+//     req.file.cloudStorageError = err;
+//     next(err);
+//   });
+
+//   stream.on('finish', () => {
+//     req.file.cloudStorageObject = gcsFileName;
+
+//     return file.makePublic()
+//       .then(() => {
+//         req.file.gcsUrl = gcsHelpers.getPublicUrl(bucketName, gcsFileName);
+//         next();
+//       });
+//   });
+
+//   stream.end(req.file.buffer);
+// };
+
+// const multer1 = multer({
+//   storage: multer.MemoryStorage,
+//   limits: {
+//     fileSize: 10 * 1024 * 1024, // Maximum file size is 10MB
+//   },
+// });
+
+// router.post(
+//   '/upload',
+//   multer.single('image'),
+//   gcsMiddlewares.sendUploadToGCS,
+//   (req, res, next) => {
+//     if (req.file && req.file.gcsUrl) {
+//       return res.send(req.file.gcsUrl);
+//     }
+
+//     return res.status(500).send('Unable to upload');
+//   },
+// );
 
 app.get('/all', async (req, res) => {
   try {
@@ -129,7 +188,7 @@ app.post("/credential", async (req, res) => {
   }
 });
 
-pp.post("/consumption", async (req, res) => {
+app.post("/consumption", async (req, res) => {
   try {
     let username = req.body.username;
     if (!checkIfExist(username, "")) {
