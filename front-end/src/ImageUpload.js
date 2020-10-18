@@ -4,9 +4,7 @@ import { PROFILE_ROUTE } from './routes';
 import { HOME_ROUTE } from './routes';
 import { Redirect } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
-import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Webcam from "react-webcam";
@@ -30,7 +28,7 @@ export class ImageUpload extends Component {
         this.setState({ home: true });
     }
 
-    sendToServer = () => {
+    sendToServer = async () => {
         let response = await axios.post("http://localhost:3001/sign_s3", {
             imageUrl: "Hello"
         }).catch(error => {

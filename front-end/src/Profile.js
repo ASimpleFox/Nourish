@@ -71,19 +71,19 @@ export class Profile extends Component {
                 <div>
                     <ul>
                         <li>
-                            <TextField required id="standard-required" label="Required" defaultValue="Age" />
+                            <TextField required onChange={this.handleChange('age')} defaultValue="Age" />
                         </li>
                         <li>
-                            <TextField required id="standard-required" label="Required" defaultValue="Height" />
+                            <TextField required onChange={this.handleChange('weight')} defaultValue="Height" />
                         </li>
                         <li>
-                            <TextField required id="standard-required" label="Required" defaultValue="Weight" />
+                            <TextField required onChange={this.handleChange('weight')} defaultValue="Weight" />
                         </li>
                         <li>
-                            <TextField required id="standard-required" label="Required" defaultValue="Body Mass Index" />
+                            <TextField required onChange={this.handleChange('bmi')} defaultValue="Body Mass Index" />
                         </li>
                         <li>
-                            <TextField required id="standard-required" label="Required" defaultValue="Gender" />
+                            <TextField required onChange={this.handleChange('gender')} label="Required" defaultValue="Gender" />
                         </li>
                     </ul>
                 </div>
