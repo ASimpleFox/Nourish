@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Webcam from "react-webcam";
 import Fab from '@material-ui/core/Fab';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 export class ImageUpload extends Component {
     state = {
@@ -94,9 +96,18 @@ export class ImageUpload extends Component {
                         />
                     }
                 </div>
-                <Fab variant="extended">
-                    Next Step
-                </Fab>
+                <div>
+                    <Fab color="secondary" variant="extended" style={{margin: 10}}>
+                        <ArrowBackIcon />
+                        Dashboard
+                    </Fab>
+                    {this.state.imageSrc !== null &&
+                        <Fab color="secondary" variant="extended">
+                            Next Step
+                            <ArrowForwardIcon />
+                        </Fab>
+                    }
+                </div>
             </ThemeProvider>
         )
     }
