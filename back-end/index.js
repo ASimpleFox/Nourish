@@ -9,6 +9,14 @@ const multer = require("multer");
 const mysql = require("mysql2/promise");
 const cors = require("cors");
 const { get } = require("http");
+const GoogleCloudStorage = require('@google-cloud/storage');
+const GOOGLE_CLOUD_PROJECT_ID = 'authentic-host-292819';
+const GOOGLE_CLOUD_KEYFILE = '../.env';
+
+const storage = GoogleCloudStorage({
+  projectId: GOOGLE_CLOUD_PROJECT_ID,
+  keyFilename: GOOGLE_CLOUD_KEYFILE,
+});
 app.use(cors());
 
 const CLIENT_ERROR = 400;
@@ -25,6 +33,8 @@ const db = mysql.createPool({
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASS || 'A123456789Bc'
 });
+
+exports.getPublicUrl = (bucketName, fileName) => `https://storage.googleapis.com/${bucketName}/${fileName}`;
 
 app.get('/all', async (req, res) => {
   try {
@@ -84,9 +94,9 @@ app.post("/personal", async (req, res) => {
       "username": result[0]["Username"],
       "email": result[0]["Email"],
       "gender": result[0]["Gender"],
-      "age": result[0]["Age"] > 0 ? result[0]["Height"] : "",
+      "age": result[0]["Age"] > 0 ? result[0]["Age"] : "",
       "height": result[0]["Height"] > 0 ? result[0]["Height"] : "",
-      "weight": result[0]["Weights"] > 0 ? result[0]["Height"] : ""
+      "weight": result[0]["Weights"] > 0 ? result[0]["Weights"] : ""
     };
     return res.status(200).json(returnObject);
   } catch(error) {
@@ -118,6 +128,39 @@ app.post("/credential", async (req, res) => {
     res.status(SERVER_ERROR).json({"error": SERVER_ERROR_MESSAGE});
   }
 });
+
+pp.post("/consumption", async (req, res) => {
+  try {
+    let username = req.body.username;
+    if (!checkIfExist(username, "")) {
+      res.status(300).json({"error": "username doesn't exists"});
+    }
+    let result = await getConsumption(username);
+    let sum = 0;
+    let foodSet = [];
+    for (let i = 0; i < result.length; i++) {
+      let food = {
+        "name": result[i]["NameOfFood"],
+        "calories": result[i]["Calories"]
+      };
+      foodSet.push(food);
+      sum += result[i]["Calories"];
+    }
+    let returnResult = {};
+    returnResult["total"] = sum;
+    returnResult["FoodSet"] = foodSet;
+    return res.status(200).json(returnObject);
+  } catch(error) {
+    console.log(error);
+    res.status(SERVER_ERROR).json({"error": SERVER_ERROR_MESSAGE});
+  }
+});
+
+async function getConsumption(username) {
+  let query = "SELECT F.NameOfFood, F.Calories FROM Food F, Users U, UserConsumption UC WHERE U.Username = ? AND U.UserID = UC.UserID AND UC.FoodID = F.NID;";
+  let [rows] = db.query(query, [username]);
+  return rows;
+}
 
 async function getPersonalInfo(username) {
   let query = "SELECT * FROM Users WHERE Username = ?;";
