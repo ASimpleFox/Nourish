@@ -9,6 +9,7 @@ Our back-end consists of SQL, Python, and node.js. Our front-end is react.js. Th
 ## Challenges We ran into
 
 ## Accomplishments that We're proud of
+We aimed for an image scanner and putting them into the database. Combining APIs and our parsing programs, we can produce accurate and formatted nutritional input from images of nutrition labels. We also design a user-friendly UI featuring secure logins. We are even more proud that our veteran programmers on the team taught industrial standards, such as React, Google Cloud (and its APIs), MySQL to the less experienced in the team
 
 ## What We learned
 
