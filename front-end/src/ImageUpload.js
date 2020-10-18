@@ -29,8 +29,10 @@ export class ImageUpload extends Component {
     }
 
     sendToServer = async () => {
+        let image = new Image();
+        image.src = document.getElementById("source").innerHTML;
         let response = await axios.post("http://localhost:8000/login", {
-            imageUrl: "Hello"
+            imageUrl: image
         }).catch(error => {
             console.log(JSON.stringify(error));
         })
