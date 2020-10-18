@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
 import { PROFILE_ROUTE } from './routes';
-import { IMAGE_ROUTE } from './routes';
+import { HOME_ROUTE } from './routes';
 import { Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-export class Dashboard extends Component {
+export class Profile extends Component {
     state = {
         profile: false,
-        image: false,
+        home: false,
         height: "",
     }
 
@@ -21,16 +26,17 @@ export class Dashboard extends Component {
         this.setState({ profile: true });
     }
 
-    goToImage = () => {
-        this.setState({ image: true });
+    goToHome = () => {
+        this.setState({ home: true });
     }
 
     render() {
         if (this.state.profile === true) {
+            this.setState({ profile: false });
             return (<Redirect to={PROFILE_ROUTE} />);
         }
-        if (this.state.image === true) {
-            return (<Redirect to={IMAGE_ROUTE} />);
+        if (this.state.home === true) {
+            return (<Redirect to={HOME_ROUTE} />);
         }
         return (
             <ThemeProvider>
@@ -47,22 +53,15 @@ export class Dashboard extends Component {
                     </AppBar>
                 </div>
                 <br />
-                <Typography variant="h4">
-                    How do I stay healthy?
-                </Typography>
-                <div>
-                    <p> How to stay healthy! </p>
-                </div>
-                <br />
                 <div style={{ height: '70%' }}>
-                    <Fab color="primary" variant="extended" aria-label="add" onClick={this.goToImage}>
-                        Nutrition Label
-                        <AddIcon />
+                    <Fab color="secondary" variant="extended" style={{ margin: 10 }} onClick={this.goToHome}>
+                        <ArrowBackIcon />
+                        Dashboard
                     </Fab>
                 </div>
             </ThemeProvider>
-        )  
+        )
     }
 }
 
-export default Dashboard
+export default Profile

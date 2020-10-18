@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { ThemeProvider } from '@material-ui/core/styles'
+import { PROFILE_ROUTE } from './routes';
+import { HOME_ROUTE } from './routes';
+import { Redirect } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,7 +17,16 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 export class ImageUpload extends Component {
     state = {
         imageSrc: null,
-        step: 0,
+        profile: false,
+        home: false,
+    }
+
+    goToProfile = () => {
+        this.setState({ profile: true });
+    }
+
+    goToHome = () => {
+        this.setState({ home: true });
     }
 
     WebcamCapture = () => {
@@ -62,17 +74,23 @@ export class ImageUpload extends Component {
     };
 
     render() {
+        if (this.state.profile === true) {
+            return (<Redirect to={PROFILE_ROUTE} />);
+        }
+        if (this.state.home === true) {
+            return (<Redirect to={HOME_ROUTE} />);
+        }
         return (
             <ThemeProvider>
                 <div>
                     <AppBar position="static">
                         <Toolbar>
-                            <IconButton edge="start" color="inherit" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton>
-                            <Typography variant="h5">
+                            <Typography variant="h4">
                                 Nourish
                             </Typography>
+                            <div style={{ flexGrow: 1 }}>
+                            </div>
+                            <Button color="inherit" onClick={this.goToProfile}>Profile</Button>
                         </Toolbar>
                     </AppBar>
                 </div>
@@ -97,7 +115,7 @@ export class ImageUpload extends Component {
                     }
                 </div>
                 <div>
-                    <Fab color="secondary" variant="extended" style={{margin: 10}}>
+                    <Fab color="secondary" variant="extended" style={{ margin: 10 }} onClick={this.goToHome}>
                         <ArrowBackIcon />
                         Dashboard
                     </Fab>
