@@ -19,4 +19,5 @@ We aimed for an image scanner and putting them into the database. Combining APIs
 
 ## What's next for ProjectNourish
 
+We would love to incorporate some data analytics to the Nourish app. For example, we could look at the daily nutritional intake data of the user and do some data analytics to measure whether or not the user is eating healthy. We could also add infographics to display this data on the dashboard so that the user can immediately gauge how well they are doing as soon as they enter the app.
 
