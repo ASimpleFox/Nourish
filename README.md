@@ -16,6 +16,7 @@ Another issue we had was figuring out how Google Cloud works. We knew we wanted 
 We aimed for an image scanner and putting them into the database. Combining APIs and our parsing programs, we can produce accurate and formatted nutritional input from images of nutrition labels. We also design a user-friendly UI featuring secure logins. We are even more proud that our veteran programmers on the team taught industrial standards, such as React, Google Cloud (and its APIs), MySQL to the less experienced in the team.
 
 ## What We learned
+We gain experience in connecting between the front end and the back end, and how a fully functional application is developed. We also learned to split up a project into different parts, but at the same time have good communication to make a functioning program. Besides that, we also practice our programming skills with a real-world project. 
 
 ## What's next for ProjectNourish
 
