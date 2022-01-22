@@ -1,3 +1,5 @@
+# THIS PROJECT IS NOW ARCHIVED!
+
 ## Inspiration
 The pandemic confines us into our personal space, but it also provides new opportunities for health technology. It became easier to track one's nutrition intake since people's food choices become more limited and more controllable. We wanted to design an app that calculates and keeps track of users' nutrition intake when they input into the app the food that they had. We wanted to design an app that helps people live healthier at home. After all, with a healthier body, there comes a stronger immune system, and people can better fight the virus.
 
